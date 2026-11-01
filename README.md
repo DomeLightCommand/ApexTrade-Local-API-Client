@@ -16,7 +16,7 @@
   </a>
 </p>
 <p align="center">
-  <img src="https://github.com/DomeLightCommand/ApexTrade-Local-API-Client/blob/main/Screenshot_13.png?raw=true" width="100%" alt="ApexTrade Local API Aggregation Dashboard Interface">
+  <img src="https://github.com/DomeLightCommand/ApexTrade-Local-API-Client/blob/main/ApexBanner.jpg?raw=true" width="100%" alt="ApexTrade Local API Aggregation Dashboard Interface">
 </p>
 <p align="center">
   <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=18&duration=2500&pause=500&color=00FFB2&center=true&vCenter=true&width=800&lines=Multi-Account+API+Aggregation;Local+Data+Dashboard;Non-Custodial+Architecture;Visit+Official+Website+Below" alt="ApexTrade Animation" />
@@ -146,21 +146,36 @@ Built for developers, analysts, and power users who manage multiple accounts acr
 
 
 
-## 🖼️ TERMINAL PREVIEW
+
+## 🖼️ DASHBOARD PREVIEW
 
 <table align="center">
   <tr>
     <td align="center" width="50%">
-      <img src="https://github.com/DomeLightCommand/ApexTrade-Local-API-Client/blob/main/ApexTrade%20Fast%20Execution%20Terminal.jpg?raw=true" alt="ApexTrade Multi Account Dashboard showing aggregated metrics across 8 endpoints" width="100%">
+      <img src="Terminal.png" alt="ApexTrade Terminal Interface" width="100%">
       <br><br>
-      <b>Multi Account Dashboard</b><br>
-      <sub>Aggregated metrics and account status across 8 connected endpoints</sub>
+      <b>Terminal Interface</b><br>
+      <sub>Order routing and execution control</sub>
     </td>
     <td align="center" width="50%">
-      <img src="https://github.com/DomeLightCommand/ApexTrade-Local-API-Client/blob/main/apextrade1.png?raw=true" alt="ApexTrade Data Panel showing native processing and latency indicators" width="100%">
+      <img src="AI%20Bots.png" alt="ApexTrade AI Bots Panel" width="100%">
       <br><br>
-      <b>Data Processing Panel</b><br>
-      <sub>Native data panel and 12.7ms processing time</sub>
+      <b>AI Bots Panel</b><br>
+      <sub>Automated strategy management</sub>
+    </td>
+  </tr>
+  <tr>
+    <td align="center" width="50%">
+      <img src="CEXDEX%20Links.png" alt="ApexTrade CEX and DEX Links" width="100%">
+      <br><br>
+      <b>CEX & DEX Links</b><br>
+      <sub>Connected endpoints and data sources</sub>
+    </td>
+    <td align="center" width="50%">
+      <img src="Analytics%20%26%20ROI.png" alt="ApexTrade Analytics and ROI" width="100%">
+      <br><br>
+      <b>Analytics & ROI</b><br>
+      <sub>Performance metrics and return tracking</sub>
     </td>
   </tr>
 </table>
