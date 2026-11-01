@@ -1,0 +1,20 @@
+{
+  "server": {
+    "host": "127.0.0.1",
+    "port": 8080
+  },
+  "api_keys": {
+    "binance": "YOUR_API_KEY",
+    "bybit": "YOUR_API_KEY",
+    "openai": "YOUR_OPENAI_KEY"
+  },
+  "risk_limits": {
+    "max_exposure_usd": 5000,
+    "max_drawdown_pct": 5.0
+  },
+  "ai_model": {
+    "provider": "openai",
+    "model_name": "gpt-4o",
+    "temperature": 0.2
+  }
+}
