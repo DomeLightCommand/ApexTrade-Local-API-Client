@@ -11,6 +11,16 @@
 </p>
 
 <p align="center">
+  <img src="https://readme-typing-svg.demolab.com?font=JetBrains+Mono&weight=700&size=16&duration=2500&pause=600&color=D4AF37&center=true&vCenter=true&width=700&lines=Interactive+UI+Demonstration;Explore+the+Dashboard;No+Installation+Required" alt="Live Demo Animation" />
+</p>
+
+<p align="center">
+  <a href="https://domelightcommand.github.io/ApexTrade-Local-API-Client/">
+    <img src="https://img.shields.io/badge/🚀_LIVE_DEMO-EXPLORE_THE_DASHBOARD-D4AF37?style=for-the-badge&logo=googlechrome&logoColor=black&labelColor=111217" height="50" alt="ApexTrade Live Demo">
+  </a>
+</p>
+
+<p align="center">
   <a href="https://apextrade.icu/">
     <img src="https://img.shields.io/badge/🌐_OFFICIAL_WEBSITE-APEXTRADE.ICU-00FFB2?style=for-the-badge&logo=googlechrome&logoColor=black" height="45" alt="ApexTrade Official Website">
   </a>
