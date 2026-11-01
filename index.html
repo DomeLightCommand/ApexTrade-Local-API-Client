@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ApexTrade - Local Multi Account API Client</title>
+    <meta name="description" content="ApexTrade is a local client for aggregating multiple API endpoints into a single interface. Non custodial, no cloud, API keys only. View the demo.">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#070709',
+                        cardDark: '#111217',
+                        cardBorder: '#222530',
+                        goldPrimary: '#d4af37',
+                        goldHover: '#f3e5ab',
+                        goldDark: '#8a6c12',
+                        textMain: '#e2e8f0',
+                        textMuted: '#8b96a5'
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #070709; color: #e2e8f0; }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        
+        /* Subtle background glow */
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, rgba(7, 7, 9, 0) 70%);
+            top: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .glass-panel {
+            background: rgba(17, 18, 23, 0.7);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(34, 37, 48, 0.8);
+            border-radius: 16px;
+        }
+
+        .gold-text {
+            background: linear-gradient(135deg, #f3e5ab 0%, #d4af37 50%, #8a6c12 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .btn-gold {
+            background: linear-gradient(135deg, #d4af37 0%, #8a6c12 100%);
+            color: #000;
+            transition: all 0.3s ease;
+        }
+        .btn-gold:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -10px rgba(212, 175, 55, 0.5);
+        }
+
+        .demo-badge {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            color: #d4af37;
+        }
+        
+        /* Slow down the pulse animation */
+        .slow-pulse {
+            animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-goldPrimary selection:text-black overflow-x-hidden">
+
+    <div class="bg-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 glass-panel border-b border-cardBorder border-x-0 border-t-0 rounded-none bg-obsidian/80">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded bg-goldPrimary flex items-center justify-center text-black font-bold text-xl">
+                        A
+                    </div>
+                    <span class="text-xl font-bold tracking-wide text-white">ApexTrade</span>
+                    <span class="demo-badge text-[10px] px-2 py-0.5 rounded mono uppercase tracking-wider ml-2">Demo</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8 text-sm font-medium text-textMuted">
+                    <a href="#features" class="hover:text-goldPrimary transition">Features</a>
+                    <a href="#preview" class="hover:text-goldPrimary transition">Preview</a>
+                    <a href="#faq" class="hover:text-goldPrimary transition">FAQ</a>
+                </div>
+                <div>
+                    <a href="https://apextrade.icu/" class="btn-gold px-5 py-2.5 rounded text-sm font-bold flex items-center gap-2">
+                        Get Full Version
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-40 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center relative z-10">
+        <h1 class="text-5xl md:text-6xl font-bold tracking-tight mb-6 text-white">
+            Multi Account <span class="gold-text">API Client</span>
+        </h1>
+        <p class="mt-4 max-w-2xl mx-auto text-lg text-textMuted mb-10">
+            A local client for aggregating multiple API endpoints into a single interface. Designed for developers and analysts who need a unified view of data streams. Non custodial. No cloud. API keys only.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <a href="https://apextrade.icu/" class="btn-gold px-8 py-4 rounded-lg text-base font-bold w-full sm:w-auto">
+                Download Full Product
+            </a>
+            <a href="#preview" class="px-8 py-4 rounded-lg text-base font-semibold border border-cardBorder hover:border-goldPrimary/50 text-white transition w-full sm:w-auto flex items-center justify-center gap-2">
+                Try Interactive Demo
+                <svg class="w-5 h-5 text-textMuted" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Section (The Dashboard) -->
+    <section id="preview" class="py-20 px-4 sm:px-6 lg:px-8 max-w-[1400px] mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-3xl font-bold text-white mb-2">Interactive Interface Preview</h2>
+            <p class="text-textMuted">This is a simulated demo. No real data is fetched or executed. For the full experience, visit the official website.</p>
+        </div>
+
+        <!-- Dashboard Container -->
+        <div class="glass-panel p-4 md:p-6 shadow-2xl relative">
+            
+            <!-- Global Status Bar -->
+            <div class="flex flex-wrap items-center justify-between mb-6 pb-4 border-b border-cardBorder">
+                <div class="flex items-center gap-3">
+                    <div class="w-3 h-3 rounded-full bg-goldPrimary slow-pulse"></div>
+                    <span class="mono text-sm text-textMuted">Connection: <span class="text-goldPrimary">Demo Mode</span></span>
+                </div>
+                <div class="flex items-center gap-4 text-sm mono">
+                    <span class="text-textMuted">Endpoints: <span class="text-white">8 Connected</span></span>
+                    <span class="text-textMuted">Latency: <span class="text-white">12ms</span></span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                
+                <!-- Left Sidebar (Navigation) -->
+                <div class="lg:col-span-1 space-y-2">
+                    <button onclick="switchTab('dashboard')" id="btn-dashboard" class="w-full text-left px-4 py-3 rounded-lg bg-cardDark border border-cardBorder text-goldPrimary font-medium text-sm flex items-center gap-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+                        Dashboard
+                    </button>
+                    <button onclick="switchTab('execution')" id="btn-execution" class="w-full text-left px-4 py-3 rounded-lg text-textMuted hover:text-white hover:bg-cardDark/50 transition font-medium text-sm flex items-center gap-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Execution Engine
+                    </button>
+                    <button onclick="switchTab('ai')" id="btn-ai" class="w-full text-left px-4 py-3 rounded-lg text-textMuted hover:text-white hover:bg-cardDark/50 transition font-medium text-sm flex items-center gap-3">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        Local AI Assistant
+                    </button>
+                </div>
+
+                <!-- Main Content Area (Tab: Dashboard) -->
+                <div id="tab-dashboard" class="lg:col-span-3 space-y-6">
+                    <!-- Top Stats -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="bg-cardDark p-5 rounded-xl border border-cardBorder">
+                            <div class="text-xs text-textMuted mb-1 mono uppercase">Total Aggregated Balance</div>
+                            <div class="text-2xl font-bold text-white mono">$128,459.42</div>
+                            <div class="text-xs text-goldPrimary mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg> +2.4% today</div>
+                        </div>
+                        <div class="bg-cardDark p-5 rounded-xl border border-cardBorder">
+                            <div class="text-xs text-textMuted mb-1 mono uppercase">Net Exposure</div>
+                            <div class="text-2xl font-bold text-white mono">$45,200.00</div>
+                            <div class="text-xs text-textMuted mt-2">Across 8 endpoints</div>
+                        </div>
+                        <div class="bg-cardDark p-5 rounded-xl border border-cardBorder">
+                            <div class="text-xs text-textMuted mb-1 mono uppercase">System Health</div>
+                            <div class="text-2xl font-bold text-white mono">99.98%</div>
+                            <div class="text-xs text-goldPrimary mt-2 flex items-center gap-1"><svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg> All systems nominal</div>
+                        </div>
+                    </div>
+
+                    <!-- Chart Placeholder -->
+                    <div class="bg-cardDark p-5 rounded-xl border border-cardBorder h-64 flex flex-col justify-between relative overflow-hidden">
+                        <div class="flex justify-between items-center z-10 relative">
+                            <span class="text-sm font-semibold text-white">Portfolio Performance (Simulated)</span>
+                            <span class="mono text-xs text-goldPrimary bg-goldPrimary/10 px-2 py-1 rounded">Live Feed Disabled</span>
+                        </div>
+                        <!-- Decorative static chart lines -->
+                        <div class="absolute bottom-0 left-0 w-full h-40 opacity-20 pointer-events-none">
+                            <svg viewBox="0 0 100 100" preserveAspectRatio="none" class="w-full h-full">
+                                <path d="M0,100 L0,80 Q10,70 20,75 T40,60 T60,50 T80,55 T100,30 L100,100 Z" fill="url(#grad)" />
+                                <defs>
+                                    <linearGradient id="grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#d4af37;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#070709;stop-opacity:0" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+                        </div>
+                        <div class="flex gap-4 z-10 relative">
+                            <div class="text-xs mono text-textMuted">1H</div>
+                            <div class="text-xs mono text-goldPrimary font-bold border-b border-goldPrimary pb-1">4H</div>
+                            <div class="text-xs mono text-textMuted">1D</div>
+                            <div class="text-xs mono text-textMuted">1W</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Main Content Area (Tab: Execution) -->
+                <div id="tab-execution" class="lg:col-span-3 space-y-6 hidden">
+                    <div class="bg-cardDark p-5 rounded-xl border border-cardBorder">
+                        <h3 class="text-sm font-semibold text-white mb-4">Recent Execution Log</h3>
+                        <div class="space-y-3 mono text-xs">
+                            <div class="flex justify-between items-center p-3 rounded bg-obsidian border border-cardBorder">
+                                <div class="flex gap-4 items-center">
+                                    <span class="text-textMuted">12:44:01</span>
+                                    <span class="text-white">Binance</span>
+                                    <span class="px-2 py-0.5 rounded bg-green-500/10 text-green-400">BUY</span>
+                                </div>
+                                <div class="flex gap-4 items-center">
+                                    <span class="text-white">0.45 BTC</span>
+                                    <span class="text-textMuted">@ $91,420.00</span>
+                                    <span class="text-goldPrimary">FILLED</span>
+                                </div>
+                            </div>
+                            <div class="flex justify-between items-center p-3 rounded bg-obsidian border border-cardBorder">
+                                <div class="flex gap-4 items-center">
+                                    <span class="text-textMuted">12:43:58</span>
+                                    <span class="text-white">Uniswap</span>
+                                    <span class="px-2 py-0.5 rounded bg-red-500/10 text-red-400">SELL</span>
+                                </div>
+                                <div class="flex gap-4 items-center">
+                                    <span class="text-white">1.20 ETH</span>
+                                    <span class="text-textMuted">@ $3,384.20</span>
+                                    <span class="text-goldPrimary">FILLED</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-6 text-center text-textMuted text-xs">Connect your API keys to enable live execution.</div>
+                    </div>
+                </div>
+
+                <!-- Main Content Area (Tab: AI) -->
+                <div id="tab-ai" class="lg:col-span-3 space-y-6 hidden">
+                    <div class="bg-cardDark p-5 rounded-xl border border-cardBorder h-64 flex flex-col items-center justify-center text-center">
+                        <svg class="w-12 h-12 text-goldPrimary mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        <h3 class="text-lg font-bold text-white mb-2">Local AI Assistant</h3>
+                        <p class="text-sm text-textMuted max-w-md">The quantized LLM runs entirely on your hardware. In the full version, you can write strategies, run backtests, and analyze data without sending anything to the cloud.</p>
+                    </div>
+                </div>
+
+            </div>
+            
+            <!-- Bottom Demo Notice -->
+            <div class="mt-6 text-center border-t border-cardBorder pt-4">
+                <p class="text-xs text-textMuted mono">This is a UI demonstration only. No data is processed. For the working application, visit <a href="https://apextrade.icu/" class="text-goldPrimary hover:underline">apextrade.icu</a></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold text-white mb-4">Designed for Local Data Aggregation</h2>
+            <p class="text-textMuted max-w-2xl mx-auto">Everything you need to manage multiple API endpoints without relying on external servers.</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- Feature 1 -->
+            <div class="glass-panel p-6">
+                <div class="w-12 h-12 rounded-lg bg-goldPrimary/10 flex items-center justify-center text-goldPrimary mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Multi Account</h3>
+                <p class="text-sm text-textMuted leading-relaxed">Connect 20+ API endpoints into a single interface. Manage all your accounts from one unified dashboard.</p>
+            </div>
+            <!-- Feature 2 -->
+            <div class="glass-panel p-6">
+                <div class="w-12 h-12 rounded-lg bg-goldPrimary/10 flex items-center justify-center text-goldPrimary mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Unified Dashboard</h3>
+                <p class="text-sm text-textMuted leading-relaxed">Aggregated drawdown, net exposure, cross-account correlation, and automatic throttling near service limits.</p>
+            </div>
+            <!-- Feature 3 -->
+            <div class="glass-panel p-6">
+                <div class="w-12 h-12 rounded-lg bg-goldPrimary/10 flex items-center justify-center text-goldPrimary mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Fast Execution</h3>
+                <p class="text-sm text-textMuted leading-relaxed">Native data panel and direct order routing into matching engines. Optimized for sub-50ms processing.</p>
+            </div>
+            <!-- Feature 4 -->
+            <div class="glass-panel p-6">
+                <div class="w-12 h-12 rounded-lg bg-goldPrimary/10 flex items-center justify-center text-goldPrimary mb-4">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+                </div>
+                <h3 class="text-lg font-bold text-white mb-2">Non Custodial</h3>
+                <p class="text-sm text-textMuted leading-relaxed">Read and write API keys only. IP whitelist. Funds always stay on the service or in your own wallet.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-white text-center mb-12">Frequently Asked Questions</h2>
+        <div class="space-y-4">
+            <div class="glass-panel p-6">
+                <h3 class="text-lg font-bold text-white mb-2">Does ApexTrade hold my funds?</h3>
+                <p class="text-textMuted text-sm">No. ApexTrade is strictly non custodial. It uses API keys with read and write permission only. Withdrawals are never enabled. Your funds stay on the service or in your own wallet.</p>
+            </div>
+            <div class="glass-panel p-6">
+                <h3 class="text-lg font-bold text-white mb-2">Does ApexTrade use the cloud?</h3>
+                <p class="text-textMuted text-sm">No. Everything runs on your machine. There is no cloud backend, no remote logging, and no data leaving your system.</p>
+            </div>
+            <div class="glass-panel p-6">
+                <h3 class="text-lg font-bold text-white mb-2">Is the source code open?</h3>
+                <p class="text-textMuted text-sm">Yes. The core is open source under the MIT license. You can audit it, run it locally, or deploy it on your own VPS.</p>
+            </div>
+            <div class="glass-panel p-6">
+                <h3 class="text-lg font-bold text-white mb-2">What platforms are supported?</h3>
+                <p class="text-textMuted text-sm">Windows, Linux, and any VPS. ApexTrade runs locally or on a remote machine you control.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer CTA -->
+    <footer class="border-t border-cardBorder bg-obsidian pt-16 pb-8 px-4 text-center">
+        <h2 class="text-2xl font-bold text-white mb-4">Ready to aggregate your data?</h2>
+        <p class="text-textMuted mb-8">Visit the official website to download the full version.</p>
+        <a href="https://apextrade.icu/" class="btn-gold px-8 py-3.5 rounded-lg text-base font-bold inline-block mb-12">
+            Go to Official Website
+        </a>
+        <div class="text-xs text-textMuted mono border-t border-cardBorder/50 pt-8 max-w-2xl mx-auto">
+            <p class="mb-2">ApexTrade is a local execution and data management tool. It is provided as is, without any guarantee.</p>
+            <p class="mb-2">Using API keys carries a high level of risk and can result in the loss of data or breach of service terms.</p>
+            <p>&copy; 2026 ApexTrade. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Tab switching logic
+        function switchTab(tabId) {
+            // Hide all tabs
+            document.getElementById('tab-dashboard').classList.add('hidden');
+            document.getElementById('tab-execution').classList.add('hidden');
+            document.getElementById('tab-ai').classList.add('hidden');
+            
+            // Show selected tab
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+
+            // Reset all buttons
+            const buttons = ['dashboard', 'execution', 'ai'];
+            buttons.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                btn.className = "w-full text-left px-4 py-3 rounded-lg text-textMuted hover:text-white hover:bg-cardDark/50 transition font-medium text-sm flex items-center gap-3";
+            });
+
+            // Highlight active button
+            const activeBtn = document.getElementById('btn-' + tabId);
+            activeBtn.className = "w-full text-left px-4 py-3 rounded-lg bg-cardDark border border-cardBorder text-goldPrimary font-medium text-sm flex items-center gap-3";
+        }
+    </script>
+</body>
+</html>
